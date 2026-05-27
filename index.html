@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>府中市 巡回状況</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: sans-serif; padding: 12px; background: #f5f5f5; font-size: 11px; }
+h1 { font-size: 14px; font-weight: normal; color: #444; margin-bottom: 10px; }
+#status { font-size: 11px; color: #888; margin-bottom: 10px; }
+table { border-collapse: collapse; width: 100%; table-layout: fixed; background: #fff; }
+td {
+  border: 1px solid #ddd;
+  padding: 6px 7px;
+  vertical-align: top;
+  width: calc(100% / 7);
+  transition: background 0.3s;
+}
+td.standby { background: #e8f5e9; }
+td.checked { background: #fce4ec; }
+td.loading { background: #fff; }
+.nm { display: block; font-size: 10px; color: #333; line-height: 1.4; }
+.cd { display: block; font-size: 9px; color: #aaa; font-family: monospace; margin-top: 2px; }
+.count { display: block; font-size: 11px; font-weight: bold; margin-top: 4px; color: #555; }
+.count.all-checked { color: #e91e63; }
+.count.has-standby { color: #388e3c; }
+</style>
+</head>
+<body>
+<h1>府中市 巡回状況</h1>
+<div id="status">読み込み中...</div>
+<table id="grid">
+<tr>
+  <td class="loading" data-station="府中栄町第４" data-code="QE32">
+    <span class="nm">府中栄町第４</span>
+    <span class="cd">QE32</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中栄町" data-code="BA69">
+    <span class="nm">T府中栄町</span>
+    <span class="cd">BA69</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中栄町第３" data-code="IU62">
+    <span class="nm">T府中栄町第３</span>
+    <span class="cd">IU62</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中新町１丁目" data-code="QB10">
+    <span class="nm">T府中新町１丁目</span>
+    <span class="cd">QB10</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="府中浅間町２丁目" data-code="QZ63">
+    <span class="nm">府中浅間町２丁目</span>
+    <span class="cd">QZ63</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ北府中" data-code="BP54">
+    <span class="nm">T北府中</span>
+    <span class="cd">BP54</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="天神町４丁目" data-code="OC70">
+    <span class="nm">天神町４丁目</span>
+    <span class="cd">OC70</span>
+    <span class="count">—</span>
+  </td>
+</tr>
+<tr>
+  <td class="loading" data-station="天神町２丁目" data-code="QE33">
+    <span class="nm">天神町２丁目</span>
+    <span class="cd">QE33</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="北府中駅前" data-code="OL69">
+    <span class="nm">北府中駅前</span>
+    <span class="cd">OL69</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="UR府中グリーンハイツ" data-code="V216">
+    <span class="nm">UR府中グリーンハイツ</span>
+    <span class="cd">V216</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="府中幸町１丁目" data-code="OT24">
+    <span class="nm">府中幸町１丁目</span>
+    <span class="cd">OT24</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="T's garden府中" data-code="EA57">
+    <span class="nm">T's garden府中</span>
+    <span class="cd">EA57</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="天神町１丁目" data-code="NH42">
+    <span class="nm">天神町１丁目</span>
+    <span class="cd">NH42</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="エリオ駐車場" data-code="KB50">
+    <span class="nm">エリオ駐車場</span>
+    <span class="cd">KB50</span>
+    <span class="count">—</span>
+  </td>
+</tr>
+<tr>
+  <td class="loading" data-station="府中大久保駐車場" data-code="BS67">
+    <span class="nm">府中大久保駐車場</span>
+    <span class="cd">BS67</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中寿町第２" data-code="U641">
+    <span class="nm">T府中寿町第２</span>
+    <span class="cd">U641</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中町第３" data-code="T864">
+    <span class="nm">T府中町第３</span>
+    <span class="cd">T864</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="府中町２丁目駐車場" data-code="DX27">
+    <span class="nm">府中町２丁目駐車場</span>
+    <span class="cd">DX27</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中若松町第２" data-code="KE79">
+    <span class="nm">T府中若松町第２</span>
+    <span class="cd">KE79</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="レジデンス若松一番館" data-code="KU17">
+    <span class="nm">レジデンス若松一番館</span>
+    <span class="cd">KU17</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="府中緑町２丁目第２" data-code="MH17">
+    <span class="nm">府中緑町２丁目第２</span>
+    <span class="cd">MH17</span>
+    <span class="count">—</span>
+  </td>
+</tr>
+<tr>
+  <td class="loading" data-station="ユーコート府中" data-code="CN26">
+    <span class="nm">ユーコート府中</span>
+    <span class="cd">CN26</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="府中若松町２丁目" data-code="LR95">
+    <span class="nm">府中若松町２丁目</span>
+    <span class="cd">LR95</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="ヴェルト府中" data-code="QV05">
+    <span class="nm">ヴェルト府中</span>
+    <span class="cd">QV05</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="フォトレ府中" data-code="DP94">
+    <span class="nm">フォトレ府中</span>
+    <span class="cd">DP94</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中緑町第３" data-code="EL20">
+    <span class="nm">T府中緑町第３</span>
+    <span class="cd">EL20</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="MAXIV東府中" data-code="LV90">
+    <span class="nm">MAXIV東府中</span>
+    <span class="cd">LV90</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中緑町第４" data-code="MJ91">
+    <span class="nm">T府中緑町第４</span>
+    <span class="cd">MJ91</span>
+    <span class="count">—</span>
+  </td>
+</tr>
+<tr>
+  <td class="loading" data-station="府中緑町２丁目第３" data-code="OG99">
+    <span class="nm">府中緑町２丁目第３</span>
+    <span class="cd">OG99</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="府中緑町１丁目" data-code="DB87">
+    <span class="nm">府中緑町１丁目</span>
+    <span class="cd">DB87</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中FRC" data-code="EJ52">
+    <span class="nm">T府中FRC</span>
+    <span class="cd">EJ52</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中宮西町第３" data-code="KV42">
+    <span class="nm">T府中宮西町第３</span>
+    <span class="cd">KV42</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="府中八幡町２丁目" data-code="BW45">
+    <span class="nm">府中八幡町２丁目</span>
+    <span class="cd">BW45</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中宮町第６" data-code="U074">
+    <span class="nm">T府中宮町第６</span>
+    <span class="cd">U074</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="府中若松町１丁目第２" data-code="MR39">
+    <span class="nm">府中若松町１丁目第２</span>
+    <span class="cd">MR39</span>
+    <span class="count">—</span>
+  </td>
+</tr>
+<tr>
+  <td class="loading" data-station="タイムズ府中宮町第４" data-code="Q486">
+    <span class="nm">T府中宮町第４</span>
+    <span class="cd">Q486</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ大國魂神社" data-code="BJ56">
+    <span class="nm">T大國魂神社</span>
+    <span class="cd">BJ56</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ大國魂神社（EV）" data-code="RJ77">
+    <span class="nm">T大國魂神社（EV）</span>
+    <span class="cd">RJ77</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="東府中マンション" data-code="KR74">
+    <span class="nm">東府中マンション</span>
+    <span class="cd">KR74</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ東府中駅前" data-code="BE95">
+    <span class="nm">T東府中駅前</span>
+    <span class="cd">BE95</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="マイプレイス東府中" data-code="IR04">
+    <span class="nm">マイプレイス東府中</span>
+    <span class="cd">IR04</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="清水が丘１丁目" data-code="QZ05">
+    <span class="nm">清水が丘１丁目</span>
+    <span class="cd">QZ05</span>
+    <span class="count">—</span>
+  </td>
+</tr>
+<tr>
+  <td class="loading" data-station="メルベーユ多磨霊園" data-code="LJ16">
+    <span class="nm">メルベーユ多磨霊園</span>
+    <span class="cd">LJ16</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中小柳町第２" data-code="OK22">
+    <span class="nm">T府中小柳町第２</span>
+    <span class="cd">OK22</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ東京競馬場横" data-code="Y343">
+    <span class="nm">T東京競馬場横</span>
+    <span class="cd">Y343</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ府中小柳町第３" data-code="QA10">
+    <span class="nm">T府中小柳町第３</span>
+    <span class="cd">QA10</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ東京競馬場横第２" data-code="RN89">
+    <span class="nm">T東京競馬場横第２</span>
+    <span class="cd">RN89</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="タイムズ多摩川競艇場前" data-code="BX03">
+    <span class="nm">T多摩川競艇場前</span>
+    <span class="cd">BX03</span>
+    <span class="count">—</span>
+  </td>
+  <td class="loading" data-station="府中是政６丁目" data-code="MT68">
+    <span class="nm">府中是政６丁目</span>
+    <span class="cd">MT68</span>
+    <span class="count">—</span>
+  </td>
+</tr>
+</table>
+
+<script>
+const GAS_URL = "https://script.google.com/macros/s/AKfycbyXbPaarnD7mQa_rqm6mk-Os3XBH6C731aGxk7ecJC5U3XjtwfMkeF429rezkAo79jN/exec";
+
+async function load() {
+  const statusEl = document.getElementById("status");
+  try {
+    const res = await fetch(GAS_URL + "?action=pullLog");
+    const json = await res.json();
+    if (!json.ok || !json.rows) {
+      statusEl.textContent = "データ取得失敗";
+      return;
+    }
+
+    // ステーションごとに集計
+    const stationMap = {};
+    json.rows.forEach(row => {
+      const st = row.station;
+      if (!stationMap[st]) stationMap[st] = { total: 0, checked: 0, standby: 0 };
+      stationMap[st].total++;
+      const s = (row.status || "").toLowerCase();
+      if (s === "checked") stationMap[st].checked++;
+      else if (s === "standby") stationMap[st].standby++;
+    });
+
+    // 各セルに反映
+    document.querySelectorAll("td[data-station]").forEach(td => {
+      const stName = td.dataset.station;
+      const countEl = td.querySelector(".count");
+
+      // 完全一致 or 部分一致で探す
+      let data = stationMap[stName];
+      if (!data) {
+        // 部分一致フォールバック
+        const keys = Object.keys(stationMap);
+        const match = keys.find(k => k.includes(stName) || stName.includes(k));
+        if (match) data = stationMap[match];
+      }
+
+      if (!data) {
+        td.className = "";
+        countEl.textContent = "データなし";
+        return;
+      }
+
+      const { total, checked, standby } = data;
+      const remaining = total - checked;
+      countEl.textContent = checked + "/" + total + "台";
+
+      if (standby > 0) {
+        td.className = "standby";
+        countEl.className = "count has-standby";
+      } else {
+        td.className = "checked";
+        countEl.className = "count all-checked";
+      }
+    });
+
+    const now = new Date().toLocaleString("ja-JP");
+    statusEl.textContent = "最終更新: " + now;
+
+  } catch(e) {
+    document.getElementById("status").textContent = "エラー: " + e.message;
+  }
+}
+
+load();
+</script>
+</body>
+</html>
