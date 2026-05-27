@@ -257,13 +257,14 @@ async function load() {
     // 府中市のみ絞り込み
     const fuchu = json.rows.filter(r => r.city === "府中市");
 
-    // ステーションごとに集計（standby/checked/Unnecessary/その他）
+    // ステーションごとに集計（Unnecessaryは分母から除外）
     const map = {};
     fuchu.forEach(r => {
       const st = r.station;
       if (!map[st]) map[st] = { total: 0, standby: 0, checked: 0 };
-      map[st].total++;
       const s = (r.status || "").toLowerCase();
+      if (s === "unnecessary") return; // 分母に含めない
+      map[st].total++;
       if (s === "standby") map[st].standby++;
       else if (s === "checked") map[st].checked++;
     });
