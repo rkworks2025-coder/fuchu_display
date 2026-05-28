@@ -128,7 +128,7 @@ async function load() {
       const name = STATION_NAMES[i];
       // 完全一致で探し、なければstation名に"ｇａｒｄｅｎ"を含むキーで部分一致
       // スペース除去して突合、それでもダメなら先頭3文字で部分一致
-      let d = map[name] || map[norm(name)];
+      let d = map[name] || normMap[norm(name)];
       const cntEl = td.querySelector(".cnt");
       if (!d) { cntEl.textContent = "\u2014"; return; }
       cntEl.textContent = d.checked + "/" + d.total + "\u53F0";
