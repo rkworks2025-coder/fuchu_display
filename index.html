@@ -104,10 +104,19 @@ async function load() {
 
     const fuchu = data.rows.filter(r => r.city === "\u5E9C\u4E2D\u5E02");
 
+    // 正規化関数：全角英数→半角、全角スペース除去、クォート統一、スペース除去
+    const norm = s => s
+      .normalize('NFKC')  // 全角英数字・記号を半角に変換
+      .replace(/[\s\u3000]/g, '')  // スペース・全角スペース除去
+      .replace(/[\u2018\u2019\u201A\u201B\u02BC\uFF07]/g, "'")  // クォート統一
+      .toLowerCase();
+
     const map = {};
+    const normMap = {};
     fuchu.forEach(r => {
       const st = r.station;
       if (!map[st]) map[st] = { total: 0, standby: 0, checked: 0 };
+      normMap[norm(st)] = map[st];
       const s = (r.status || "").toLowerCase();
       if (s === "unnecessary") return;
       map[st].total++;
@@ -119,13 +128,7 @@ async function load() {
       const name = STATION_NAMES[i];
       // 完全一致で探し、なければstation名に"ｇａｒｄｅｎ"を含むキーで部分一致
       // スペース除去して突合、それでもダメなら先頭3文字で部分一致
-      let d = map[name];
-      if (!d) {
-        const strip = s => s.replace(/[\s\u3000]/g, '');
-        const strippedName = strip(name);
-        const fallbackKey = Object.keys(map).find(k => strip(k) === strippedName);
-        if (fallbackKey) d = map[fallbackKey];
-      }
+      let d = map[name] || map[norm(name)];
       const cntEl = td.querySelector(".cnt");
       if (!d) { cntEl.textContent = "\u2014"; return; }
       cntEl.textContent = d.checked + "/" + d.total + "\u53F0";
