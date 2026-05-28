@@ -117,7 +117,15 @@ async function load() {
 
     document.querySelectorAll("#grid td").forEach((td, i) => {
       const name = STATION_NAMES[i];
-      const d = map[name];
+      // 完全一致で探し、なければstation名に"ｇａｒｄｅｎ"を含むキーで部分一致
+      // スペース除去して突合、それでもダメなら先頭3文字で部分一致
+      let d = map[name];
+      if (!d) {
+        const strip = s => s.replace(/[\s\u3000]/g, '');
+        const strippedName = strip(name);
+        const fallbackKey = Object.keys(map).find(k => strip(k) === strippedName);
+        if (fallbackKey) d = map[fallbackKey];
+      }
       const cntEl = td.querySelector(".cnt");
       if (!d) { cntEl.textContent = "\u2014"; return; }
       cntEl.textContent = d.checked + "/" + d.total + "\u53F0";
